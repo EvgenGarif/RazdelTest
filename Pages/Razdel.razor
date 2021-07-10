@@ -11,43 +11,65 @@
 }
 else
 {
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Date</th>
-                <th>Temp. (C)</th>
-                <th>Temp. (F)</th>
-                <th>Summary</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var forecast in categorys)
-            {
-                <tr>
-                    <td>@forecast.NumberCategory</td>
-                    <td>@forecast.NameCat</td>
-                    <td>@forecast.Img</td>
-                </tr>
-            }
-        </tbody>
-    </table>
+    @*<form>
+        <div class="mb-3">*@
+    <label for="exampleInputEmail1" class="form-label">Поиск</label>
+    <div>@message</div>
+  
+    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"   @onchange="CheckChanged" />
+    <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+    @*</div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>*@
+
+    @foreach (var forecast in categorys1)
+    {
+        <div class="card" style="width: 18rem;">
+            <img src="/Img/@forecast.Img" class="card-img-top" alt="">
+            <div class="card-body">
+                <h5 class="card-title">@forecast.NameCat</h5>
+                <div hidden>@forecast.NumberCategory</div>
+                @*<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    <a href="#" class="btn btn-primary">Go somewhere</a>*@
+            </div>
+        </div>
+
+
+    }
+
 }
 
 @code {
-    private Category[] categorys;
+    private List<Category> categorys;
+
+    private List<Category> categorys1;
 
     protected override async Task OnInitializedAsync()
     {
-        categorys = await Http.GetFromJsonAsync<Category[]>("sample-data/category.json");
+        categorys = await Http.GetFromJsonAsync<List<Category>>("sample-data/category.json");
+        categorys1 = categorys;
     }
 
+    private string message;
+    public string Input1 { get; set; }
+    public string Input2 { get; set; }
+
+    private void CheckChanged(ChangeEventArgs __e)
+    {
+        Input2 = __e.Value.ToString();
+        categorys1 = categorys.Where(e => e.NumberCategory == Input2).ToList();
+        if(categorys1.Count() == 0)
+        {
+            categorys1 = categorys;
+        }
+    }
     public class Category
     {
-        public int NumberCategory { get; set; }
+        public string NumberCategory { get; set; }
 
         public string NameCat { get; set; }
 
         public string Img { get; set; }
-        
+
     }
 }
