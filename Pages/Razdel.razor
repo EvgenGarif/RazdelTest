@@ -1,0 +1,53 @@
+﻿@page "/razdel"
+@inject HttpClient Http
+
+<h1>Weather forecast</h1>
+
+<p>This component demonstrates fetching data from the server.</p>
+
+@if (categorys == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Temp. (C)</th>
+                <th>Temp. (F)</th>
+                <th>Summary</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var forecast in categorys)
+            {
+                <tr>
+                    <td>@forecast.NumberCategory</td>
+                    <td>@forecast.NameCat</td>
+                    <td>@forecast.Img</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private Category[] categorys;
+
+    protected override async Task OnInitializedAsync()
+    {
+        categorys = await Http.GetFromJsonAsync<Category[]>("sample-data/category.json");
+    }
+
+    public class Category
+    {
+        public int NumberCategory { get; set; }
+
+        public string NameCat { get; set; }
+
+        public string Img { get; set; }
+        
+    }
+}
