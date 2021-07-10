@@ -1,27 +1,27 @@
 [
   {
-    "numbercategory": 1,
+    "numbercategory": "1",
     "namecat": "sdsd",
-    "img": "Freezing"
+    "img": "1.jpg"
   },
   {
-    "numbercategory": 1,
+    "numbercategory": "2",
     "namecat": "sdsd",
-    "img": "Freezing"
+    "img": "2.jpg"
   },
   {
-    "numbercategory": 1,
+    "numbercategory": "3",
     "namecat": "sdsd",
-    "img": "Freezing"
+    "img": "3.jpg"
   },
   {
-    "numbercategory": 1,
+    "numbercategory": "4",
     "namecat": "sdsd",
-    "img": "Freezing"
+    "img": "4.jpg"
   },
   {
-    "numbercategory": 1,
+    "numbercategory": "5",
     "namecat": "sdsd",
-    "img": "Freezing"
+    "img": "5.jpg"
   }
 ]
